@@ -1,0 +1,36 @@
+.start-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 4vh, 40px);
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.start-screen:disabled {
+  cursor: default;
+}
+
+.start-screen__title {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-weight: 300;
+  font-size: clamp(28px, 5vh, 48px);
+  color: #eafffe;
+  letter-spacing: 0.04em;
+}
+
+.start-screen__hint {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-weight: 300;
+  font-size: clamp(14px, 2.2vh, 20px);
+  color: rgba(101, 245, 237, 0.65);
+  letter-spacing: 0.03em;
+  text-align: center;
+  padding: 0 24px;
+}

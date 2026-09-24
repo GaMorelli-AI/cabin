@@ -1,0 +1,22 @@
+.error-banner {
+  position: absolute;
+  bottom: clamp(28px, 6vh, 64px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-weight: 300;
+  font-size: clamp(13px, 2vh, 16px);
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.03em;
+  animation: error-banner-fade 1.8s ease-in-out infinite;
+}
+
+@keyframes error-banner-fade {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}

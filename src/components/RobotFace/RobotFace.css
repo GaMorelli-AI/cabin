@@ -1,0 +1,74 @@
+.robot-face {
+  /* ~40% larger than the original min(70vw, 60vh) / 640px footprint (up
+     from the earlier ~30% pass), so Cabin reads as dominant/imponent while
+     still leaving an elegant margin — vw is the binding constraint on a
+     portrait totem, so it's the more conservative of the two increases. */
+  width: min(95vw, 84vh);
+  height: min(95vw, 84vh);
+  max-width: 912px;
+  max-height: 912px;
+  overflow: visible;
+  filter: drop-shadow(0 0 26px var(--robot-glow, rgba(101, 245, 237, 0.35)));
+  transition: filter 0.6s ease;
+}
+
+.robot-face__breathe--active {
+  transform-origin: 160px 210px;
+  animation: robot-face-breathe 8s ease-in-out infinite;
+}
+
+@keyframes robot-face-breathe {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  30% {
+    transform: translateY(-2px) rotate(0.35deg);
+  }
+  60% {
+    transform: translateY(1.5px) rotate(-0.3deg);
+  }
+  80% {
+    transform: translateY(-1px) rotate(0.15deg);
+  }
+}
+
+.robot-face__group {
+  transition: transform 0.45s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.robot-eye__lid,
+.robot-eye__arc {
+  transition:
+    opacity 0.35s ease,
+    height 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    y 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    d 0.35s ease;
+}
+
+.robot-eye {
+  transition: transform 0.45s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.robot-mouth__curve,
+.robot-mouth__open {
+  transition:
+    opacity 0.3s ease,
+    d 0.3s ease;
+}
+
+.robot-mouth__open {
+  transition:
+    opacity 0.2s ease,
+    ry 0.09s ease-out,
+    rx 0.09s ease-out;
+}
+
+.robot-face--speaking .robot-face__group,
+.robot-face--speaking .robot-eye {
+  transition-duration: 0.3s;
+}
+
+.robot-face--error {
+  filter: drop-shadow(0 0 16px rgba(101, 245, 237, 0.18));
+}
