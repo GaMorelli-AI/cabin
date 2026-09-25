@@ -9,7 +9,8 @@ export type RobotState =
   | "goodbye"
   | "error";
 
-export type ConnectionStatus = "disconnected" | "connecting" | "connected" | "reconnecting";
+/** Mirrors @elevenlabs/react's ConversationStatus so the rest of the app doesn't import the SDK just for this type. */
+export type ConnectionStatus = "disconnected" | "connecting" | "connected" | "error";
 
 export interface RobotStatusSnapshot {
   state: RobotState;

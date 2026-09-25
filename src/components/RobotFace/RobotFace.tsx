@@ -1,7 +1,8 @@
+import { useEffect } from "react";
 import { useIdleBehavior } from "../../hooks/useIdleBehavior";
 import { COLORS } from "../../config/robotConfig";
 import type { RobotState } from "../../types/robot";
-import { EXPRESSIONS, IDLE_EXPRESSIONS } from "./expressions";
+import { EXPRESSIONS, IDLE_EXPRESSIONS, type IdleExpression } from "./expressions";
 import { Eyes } from "./Eyes";
 import { Mouth } from "./Mouth";
 import "./RobotFace.css";
@@ -9,6 +10,8 @@ import "./RobotFace.css";
 interface RobotFaceProps {
   state: RobotState;
   audioLevel: number;
+  /** Purely informational side-channel for status/debug UIs — RobotFace's own idle behavior doesn't depend on it. */
+  onIdleExpressionChange?: (expression: IdleExpression | null) => void;
 }
 
 const VIEWBOX_W = 320;
@@ -19,10 +22,14 @@ const MOUTH_CY = 268;
 const DRIFT_PX = 6;
 const GAZE_PX = 34;
 
-export function RobotFace({ state, audioLevel }: RobotFaceProps) {
+export function RobotFace({ state, audioLevel, onIdleExpressionChange }: RobotFaceProps) {
   const isIdle = state === "idle";
   const { isBlinking, drift, idleExpression } = useIdleBehavior(isIdle);
   const expression = isIdle ? IDLE_EXPRESSIONS[idleExpression] : EXPRESSIONS[state];
+
+  useEffect(() => {
+    onIdleExpressionChange?.(isIdle ? idleExpression : null);
+  }, [isIdle, idleExpression, onIdleExpressionChange]);
 
   const blinkScale = isBlinking ? 0.04 : 1;
   const breathingScale = expression.breathing ? 1 + audioLevel * 0.05 : 1;
