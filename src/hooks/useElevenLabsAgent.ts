@@ -76,10 +76,21 @@ export function useElevenLabsAgent({ onEvent }: UseElevenLabsAgentOptions) {
   const getVolume = useCallback(() => {
     const c = conversationRef.current;
     if (c.status !== "connected") return 0;
-    return c.mode === "speaking" ? c.getOutputVolume() : c.getInputVolume();
+    if (c.mode === "speaking") return c.getOutputVolume();
+    return c.isMuted ? 0 : c.getInputVolume();
+  }, []);
+
+  // The SDK only allows muting during an active session (and resets it on
+  // disconnect), so this is a no-op otherwise.
+  const toggleMute = useCallback(() => {
+    const c = conversationRef.current;
+    if (c.status !== "connected") return;
+    c.setMuted(!c.isMuted);
   }, []);
 
   return {
+    isMuted: conversation.isMuted,
+    toggleMute,
     status: conversation.status,
     conversationId,
     isSpeaking: conversation.isSpeaking,

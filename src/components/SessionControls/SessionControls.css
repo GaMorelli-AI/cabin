@@ -5,7 +5,7 @@
   bottom: max(16px, env(safe-area-inset-bottom));
   left: max(16px, env(safe-area-inset-left));
   display: flex;
-  gap: 10px;
+  gap: clamp(6px, 1.5vw, 10px);
   z-index: 10;
 }
 
@@ -18,7 +18,7 @@
   background: rgba(10, 14, 18, 0.55);
   border: 1px solid rgba(101, 245, 237, 0.3);
   border-radius: 999px;
-  padding: 9px 22px;
+  padding: 9px clamp(12px, 3vw, 22px);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition:
@@ -30,6 +30,12 @@
 .session-controls__button:hover:not(:disabled) {
   background: rgba(101, 245, 237, 0.12);
   border-color: rgba(101, 245, 237, 0.55);
+}
+
+.session-controls__button--muted {
+  color: #f5c065;
+  border-color: rgba(245, 192, 101, 0.6);
+  background: rgba(245, 192, 101, 0.1);
 }
 
 .session-controls__button:disabled {

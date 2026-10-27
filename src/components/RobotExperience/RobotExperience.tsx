@@ -27,7 +27,7 @@ export function RobotExperience() {
   const [lastTransition, setLastTransition] = useState("—");
   const { state: robotState, dispatch, forceState } = useRobotState();
   const { state: micPermission, requestPermission } = useMicrophonePermission();
-  const { status, conversationId, isSpeaking, startConversation, endConversation, getVolume } = useElevenLabsAgent({
+  const { status, conversationId, isSpeaking, isMuted, toggleMute, startConversation, endConversation, getVolume } = useElevenLabsAgent({
     onEvent: dispatch,
   });
 
@@ -86,9 +86,16 @@ export function RobotExperience() {
       <RobotFace state={robotState} audioLevel={audioLevel} onIdleExpressionChange={setIdleExpression} />
       {robotState === "error" && <ErrorBanner />}
 
-      <SessionControls status={status} onLigar={handleLigar} onDesligar={handleDesligar} />
+      <SessionControls
+        status={status}
+        isMuted={isMuted}
+        onLigar={handleLigar}
+        onDesligar={handleDesligar}
+        onToggleMute={toggleMute}
+      />
 
       <StatusPanel
+        isMuted={isMuted}
         robotState={robotState}
         idleExpression={idleExpression}
         connectionStatus={status}

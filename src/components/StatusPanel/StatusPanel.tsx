@@ -43,6 +43,7 @@ interface StatusPanelProps {
   conversationId: string | null;
   isAgentSpeaking: boolean;
   microphonePermission: string;
+  isMuted: boolean;
   audioLevel: number;
   agentId?: string;
   lastTransition: string;
@@ -63,6 +64,7 @@ export function StatusPanel({
   conversationId,
   isAgentSpeaking,
   microphonePermission,
+  isMuted,
   audioLevel,
   agentId,
   lastTransition,
@@ -110,7 +112,7 @@ export function StatusPanel({
             <dt>Agent Speaking</dt>
             <dd>{isAgentSpeaking ? "true" : "false"}</dd>
             <dt>Microphone</dt>
-            <dd>{microphonePermission}</dd>
+            <dd>{isMuted ? `${microphonePermission} (muted)` : microphonePermission}</dd>
             <dt>Audio Level</dt>
             <dd>{audioLevel.toFixed(2)}</dd>
             <dt>Conversation</dt>

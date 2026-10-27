@@ -3,8 +3,10 @@ import "./SessionControls.css";
 
 interface SessionControlsProps {
   status: ConnectionStatus;
+  isMuted: boolean;
   onLigar: () => void;
   onDesligar: () => void;
+  onToggleMute: () => void;
 }
 
 /**
@@ -13,7 +15,7 @@ interface SessionControlsProps {
  * ElevenLabs session directly (via the handlers RobotExperience passes in)
  * and never compete visually with the face.
  */
-export function SessionControls({ status, onLigar, onDesligar }: SessionControlsProps) {
+export function SessionControls({ status, isMuted, onLigar, onDesligar, onToggleMute }: SessionControlsProps) {
   const isConnecting = status === "connecting";
   const isConnected = status === "connected";
 
@@ -24,6 +26,15 @@ export function SessionControls({ status, onLigar, onDesligar }: SessionControls
       </button>
       <button className="session-controls__button" onClick={onDesligar} disabled={!isConnected}>
         Desligar
+      </button>
+      <button
+        className={`session-controls__button${isMuted ? " session-controls__button--muted" : ""}`}
+        onClick={onToggleMute}
+        disabled={!isConnected}
+        aria-pressed={isMuted}
+        title={isMuted ? "Microfone mutado — o Cabin não te ouve" : "Mutar o microfone (evita interrupções por ruído)"}
+      >
+        {isMuted ? "Desmutar" : "Mutar"}
       </button>
     </div>
   );
